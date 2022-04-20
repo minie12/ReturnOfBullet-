@@ -1,15 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed;
-    public Camera camera;
+    public TotalManager manager;
 
+    public float speed;
     public GameObject bullet;
 
-    public bool monCollide, bulletCollide;
+    // shooting 
+    public int magazine;
+    public Slider magazines;
+    const float shootDelay = 0.001f; //레이저를 쏘는 주기를 정해줍니다.
+    float shootTimer = 1; //시간을 잴 타이머를 만들어줍니다.
+
+    void Start(){
+        magazine = 10;
+    }
 
     // Update is called once per frame
     void Update()
@@ -30,31 +40,68 @@ public class PlayerMovement : MonoBehaviour
                                                             mouse.y,
                                                             10));
         Vector3 forward = mouseWorld - this.transform.position;
-        //Debug.Log(mouseWorld);
         int degreeAddition = forward.x < 0 ? 180 : 0;
         float angle = degreeAddition + Mathf.Atan(forward.y / forward.x) * 180 / Mathf.PI;
         transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        // when mouse button is clicked, shoot the bullet toward the mouse pos
-        /*
+        
+        // bullet number limit
+        magazines.value = (float)(0.1*magazine);
         if (Input.GetMouseButtonDown(0))
         {
-            Instantiate(bullet, transform.position, Quaternion.Euler(0, 0, angle - 90));
-        }*/
+            if (magazine > 0)
+            {
+                if (shootTimer > shootDelay ) //쿨타임이 지났는지와, 공격키인 스페이스가 눌려있는지 검사합니다.
+                {
+                    magazine--;
+                    bullet_shoot(); // when mouse button is clicked, shoot the bullet toward the mouse pos
+                    StartCoroutine("NewBullet");
+                    shootTimer = 0; //쿨타임을 다시 카운트 합니다.
+                }
+                shootTimer += Time.deltaTime; //쿨타임을 카운트 합니다.
+            }   
+        }
+    }
+
+    IEnumerator NewBullet()
+    {
+        yield return new WaitForSeconds(2f);
+        magazine++;
+
+    }
+
+    void bullet_shoot()
+    {
+        Vector3 MousePos = Input.mousePosition;     //마우스 포지션 받아오기
+
+        float angle = (MousePos.x - gameObject.transform.position.x) / (MousePos.y - gameObject.transform.position.y);
+        Vector3 dirToTar = MousePos - gameObject.transform.position;
+        double degree = Math.Atan(angle) * Mathf.Rad2Deg;
+
+        Vector3 mouse = Input.mousePosition;
+        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(new Vector3(
+                                                            mouse.x,
+                                                            mouse.y,
+                                                            gameObject.transform.position.z));
+        Vector3 forward = mouseWorld - gameObject.transform.position;
+
+        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(forward, Vector3.forward));      //총알 생성
+
     }
 
     void OnTriggerEnter2D(Collider2D other)
     //rigidBody가 무언가와 충돌할때 호출되는 함수 입니다.
     //Collider2D other로 부딪힌 객체를 받아옵니다.
     {
-        if (other.gameObject.tag.Equals("Enemy"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            monCollide = true;
+            Debug.Log("Player: Enemy End");
+            manager.GameOver();
         }
         if (other.gameObject.tag.Equals("bullet") && !other.gameObject.GetComponent<Bullet>().isFirst)
         {
-            bulletCollide = true;
-            Debug.Log(monCollide);
+            Debug.Log("Bullet End");
+            manager.GameOver();
         }
     }
 }

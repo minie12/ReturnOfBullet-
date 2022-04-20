@@ -2,41 +2,54 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class enemy : MonoBehaviour
+public class enemy2 : MonoBehaviour
 {
     public GameObject Enemy;
     //상수로 움직일 속도를 지정해 줍니다.
     Transform target;
     public float velocity;
     public Vector3 direction;
+
     float randomX;  //적이 나타날 X좌표를 랜덤으로 생성해 줍니다.
     float randomY;  //적이 나타날 Y좌표를 랜덤으로 생성해 줍니다.
     Vector3 randomVector;
 
-    Animator anim;
     Vector3 Pos;
+    public GameObject GrownUp;
+    Animator anim;
 
     GameObject Manager;
-
 
     void Start()
     {
         velocity = 0.05f;
         //target = GameObject.Find("player").transform;
         RandomXY();
+        Invoke("Growing", 6);
         anim = gameObject.GetComponent<Animator>();
 
         Manager = GameObject.Find("GameObjects");
+
     }
     void Update()
     {
         RandomMove();
     }
 
-    //public void Growing()
-    //{
-    //    if(gameObject.)
-    //}
+    void Growing()
+    {
+        this.anim.SetBool("evolve", true);
+        Invoke("changeAnim", 0.45f);
+    }
+
+    void changeAnim()
+    {
+        Pos = gameObject.transform.position;
+        Destroy(gameObject);
+        
+        GameObject enemy3 = (GameObject)Instantiate(GrownUp, Pos, Quaternion.identity);
+    }
+
 
     public void RandomXY()
     {
@@ -44,7 +57,7 @@ public class enemy : MonoBehaviour
         randomY = Random.Range(-7.23f, 7f);
         randomVector = new Vector3(randomX, randomY, transform.position.z);
         //Invoke("RandomXY", 1f);
-       // Debug.Log("New Location: " + randomVector);
+        //Debug.Log("New Location: " + randomVector);
 
     }
 
@@ -58,33 +71,35 @@ public class enemy : MonoBehaviour
                                        transform.position.y + (direction.y * velocity),
                                           transform.position.z);
 
-      
+        //Debug.Log(gameObject.transform.position);
 
         if (Mathf.Abs(transform.position.x - randomVector.x) <= 0.1f && Mathf.Abs(transform.position.y - randomVector.y) <= 0.1f)
         {
-           
+            //Debug.Log("NewPlace");
             RandomXY();
         }
 
     }
-
+   
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag.Equals("bullet"))
         {
+            Debug.Log("1: "+Time.deltaTime);
             this.anim.SetBool("bulletHit", true);
+            Debug.Log(Time.deltaTime);
             Destroy(other.gameObject);
             Invoke("destroy", 0.7f);
         }
     }
-    void destroy()
+     void destroy()
     {
         Pos = gameObject.transform.position;
         Destroy(gameObject);
         //분열
-        Manager.GetComponent<totalManager>().monNumb++;
-        Manager.GetComponent<totalManager>().purple++;
+        Manager.GetComponent<TotalManager>().monNumb++;
+        Manager.GetComponent<TotalManager>().orange++;
         GameObject enemy1 = (GameObject)Instantiate(Enemy, gameObject.transform.position, Quaternion.identity);
         GameObject enemy2 = (GameObject)Instantiate(Enemy, gameObject.transform.position, Quaternion.identity);
     }

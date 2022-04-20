@@ -56,8 +56,8 @@ public class RedEnemy : MonoBehaviour
 
     void destroy()
     {
-        Manager.GetComponent<totalManager>().monNumb--;
-        Manager.GetComponent<totalManager>().red++;
+        Manager.GetComponent<TotalManager>().monNumb--;
+        Manager.GetComponent<TotalManager>().red++;
         Destroy(gameObject);
     }
 

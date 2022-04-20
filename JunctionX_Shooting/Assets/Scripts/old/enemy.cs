@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class enemy3 : MonoBehaviour
+public class enemy : MonoBehaviour
 {
     public GameObject Enemy;
     //상수로 움직일 속도를 지정해 줍니다.
@@ -14,18 +14,15 @@ public class enemy3 : MonoBehaviour
     float randomY;  //적이 나타날 Y좌표를 랜덤으로 생성해 줍니다.
     Vector3 randomVector;
 
-    Vector3 Pos;
-    public GameObject GrownUp;
     Animator anim;
+    Vector3 Pos;
 
     GameObject Manager;
-
     void Start()
     {
-        velocity = 0.04f;
+        velocity = 0.05f;
         //target = GameObject.Find("player").transform;
         RandomXY();
-        Invoke("Growing", 6);
         anim = gameObject.GetComponent<Animator>();
 
         Manager = GameObject.Find("GameObjects");
@@ -35,21 +32,10 @@ public class enemy3 : MonoBehaviour
         RandomMove();
     }
 
-    void Growing()
-    {
-        
-        this.anim.SetBool("evolve", true);
-        Invoke("changeAnim",0.5f);
-       
-    }
-
-    void changeAnim()
-    {
-        Pos = gameObject.transform.position;
-        Destroy(gameObject);
-
-        GameObject enemy3 = (GameObject)Instantiate(GrownUp, Pos, Quaternion.identity);
-    }
+    //public void Growing()
+    //{
+    //    if(gameObject.)
+    //}
 
     public void RandomXY()
     {
@@ -57,7 +43,7 @@ public class enemy3 : MonoBehaviour
         randomY = Random.Range(-7.23f, 7f);
         randomVector = new Vector3(randomX, randomY, transform.position.z);
         //Invoke("RandomXY", 1f);
-        //Debug.Log("New Location: " + randomVector);
+       // Debug.Log("New Location: " + randomVector);
 
     }
 
@@ -71,16 +57,16 @@ public class enemy3 : MonoBehaviour
                                        transform.position.y + (direction.y * velocity),
                                           transform.position.z);
 
-        //Debug.Log(gameObject.transform.position);
+      
 
         if (Mathf.Abs(transform.position.x - randomVector.x) <= 0.1f && Mathf.Abs(transform.position.y - randomVector.y) <= 0.1f)
         {
-            //Debug.Log("NewPlace");
+           
             RandomXY();
         }
 
     }
-   
+
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -88,19 +74,19 @@ public class enemy3 : MonoBehaviour
         {
             this.anim.SetBool("bulletHit", true);
             Destroy(other.gameObject);
-            Invoke("destroy", 0.3f);
-
-            //enemy1.anim.Controller = aOrange;
+            Invoke("destroy", 0.7f);
         }
     }
-
-     void destroy()
+    void destroy()
     {
         Pos = gameObject.transform.position;
         Destroy(gameObject);
         //분열
-        Manager.GetComponent<totalManager>().green++;
+        Manager.GetComponent<TotalManager>().monNumb++;
+        Manager.GetComponent<TotalManager>().purple++;
         GameObject enemy1 = (GameObject)Instantiate(Enemy, gameObject.transform.position, Quaternion.identity);
+        GameObject enemy2 = (GameObject)Instantiate(Enemy, gameObject.transform.position, Quaternion.identity);
     }
+
 
 }

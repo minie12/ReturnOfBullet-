@@ -4,13 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class totalManager : MonoBehaviour
+public class TotalManager : MonoBehaviour
 {
-    public GameObject player;
-    public Image gameOverUI;
-    bool monCollide, bulletCollide;
-
-    public int monNumb, length;
+    public int monNumb;
 
     public int red, green, orange, purple;
     int totalScore;
@@ -24,17 +20,7 @@ public class totalManager : MonoBehaviour
         totalScore = red * 5 + green * 3 + orange * 2 + purple;
         scoreText.text = totalScore.ToString();
 
-        // End Game
-        monCollide = player.GetComponent<PlayerMovement>().monCollide;
-        bulletCollide = player.GetComponent<PlayerMovement>().bulletCollide;
-        
-
-        if (monCollide || bulletCollide)
-        {
-            PlayerPrefs.SetInt("score", totalScore);
-            SceneManager.LoadScene("gameOver");
-        }
-
+        // end game - no more monster
         if (monNumb < 1)
         {
             PlayerPrefs.SetInt("score", totalScore);
@@ -42,4 +28,12 @@ public class totalManager : MonoBehaviour
         }
     }
 
+    public void EnemyIncrease(){ monNumb++; }
+    public void EnemyDecrease(){ monNumb--; }
+    public int GetMonNumb(){return monNumb;}
+
+    public void GameOver(){
+        PlayerPrefs.SetInt("score", totalScore);
+        SceneManager.LoadScene("gameOver");
+    }
 }

@@ -8,24 +8,10 @@ public class Wall : MonoBehaviour
     public GameObject wall_east, wall_west, wall_south, wall_north;
     Vector2 MousePos, EnterPos, ExitPos, NextPos;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void OnTriggerEnter2D(Collider2D bullet1)
     {
-
         if (bullet1.gameObject.CompareTag("bullet"))
         {
-
             EnterPos = bullet1.gameObject.transform.position;
         }
     }
@@ -78,9 +64,7 @@ public class Wall : MonoBehaviour
             {
                 //Destroy(bullet1.gameObject);
                 //bullet1.gameObject.SetActive(false);
-
             }
-
         }
     }
 }

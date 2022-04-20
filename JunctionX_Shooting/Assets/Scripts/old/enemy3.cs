@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class enemy2 : MonoBehaviour
+public class enemy3 : MonoBehaviour
 {
     public GameObject Enemy;
     //상수로 움직일 속도를 지정해 줍니다.
@@ -22,14 +22,13 @@ public class enemy2 : MonoBehaviour
 
     void Start()
     {
-        velocity = 0.05f;
+        velocity = 0.04f;
         //target = GameObject.Find("player").transform;
         RandomXY();
         Invoke("Growing", 6);
         anim = gameObject.GetComponent<Animator>();
 
         Manager = GameObject.Find("GameObjects");
-
     }
     void Update()
     {
@@ -38,18 +37,19 @@ public class enemy2 : MonoBehaviour
 
     void Growing()
     {
+        
         this.anim.SetBool("evolve", true);
-        Invoke("changeAnim", 0.45f);
+        Invoke("changeAnim",0.5f);
+       
     }
 
     void changeAnim()
     {
         Pos = gameObject.transform.position;
         Destroy(gameObject);
-        
+
         GameObject enemy3 = (GameObject)Instantiate(GrownUp, Pos, Quaternion.identity);
     }
-
 
     public void RandomXY()
     {
@@ -86,23 +86,21 @@ public class enemy2 : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("bullet"))
         {
-            Debug.Log("1: "+Time.deltaTime);
             this.anim.SetBool("bulletHit", true);
-            Debug.Log(Time.deltaTime);
             Destroy(other.gameObject);
-            Invoke("destroy", 0.7f);
+            Invoke("destroy", 0.3f);
+
+            //enemy1.anim.Controller = aOrange;
         }
     }
+
      void destroy()
     {
         Pos = gameObject.transform.position;
         Destroy(gameObject);
         //분열
-        Manager.GetComponent<totalManager>().monNumb++;
-        Manager.GetComponent<totalManager>().orange++;
+        Manager.GetComponent<TotalManager>().green++;
         GameObject enemy1 = (GameObject)Instantiate(Enemy, gameObject.transform.position, Quaternion.identity);
-        GameObject enemy2 = (GameObject)Instantiate(Enemy, gameObject.transform.position, Quaternion.identity);
     }
-
 
 }

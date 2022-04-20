@@ -4,13 +4,16 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
-  - shot
   - east
   - west
   - north
   - south
   - bullet
+  - outWall
+  - enemyPurple
+  - enemyOrange
+  - enemyGreen
+  - enemyRed
   layers:
   - Default
   - TransparentFX
@@ -20,8 +23,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Wall
+  - Enemy
   - 
   - 
   - 

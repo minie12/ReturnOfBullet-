@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class Teleport : MonoBehaviour
+public class Teleport: MonoBehaviour
 {
 
     public int magazine;
