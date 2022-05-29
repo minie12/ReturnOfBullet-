@@ -12,6 +12,7 @@ public class TotalManager : MonoBehaviour
     int totalScore;
 
     public Text scoreText;
+    public bool feverOn = false;
 
     // Update is called once per frame
     void Update()
@@ -25,6 +26,21 @@ public class TotalManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("score", totalScore);
             SceneManager.LoadScene("Clear");
+        }
+
+        //fever time
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (!feverOn)
+            {
+                feverOn = true;
+                Debug.Log("fever On");
+            }
+            else
+            {
+                feverOn = false;
+                Debug.Log("fever OFF");
+            }
         }
     }
 

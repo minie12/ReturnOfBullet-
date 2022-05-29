@@ -23,7 +23,7 @@ public class item_radial : MonoBehaviour
         
     }
 
-    void bullet_shoot()
+    void radial_shoot()
     {
         Vector3 v0 = new Vector3(0, 1, -10);
         Vector3 v1 = new Vector3(1, 1, -10);
@@ -50,7 +50,7 @@ public class item_radial : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            bullet_shoot();
+            radial_shoot();
         }
     }
 }

@@ -2263,6 +2263,7 @@ MonoBehaviour:
   orange: 0
   purple: 0
   scoreText: {fileID: 1759019555}
+  feverOn: 0
 --- !u!1 &1954403092
 GameObject:
   m_ObjectHideFlags: 0
