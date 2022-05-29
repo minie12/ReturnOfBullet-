@@ -54,7 +54,14 @@ public class PlayerMovement : MonoBehaviour
                 if (shootTimer > shootDelay ) //쿨타임이 지났는지와, 공격키인 스페이스가 눌려있는지 검사합니다.
                 {
                     magazine--;
-                    bullet_shoot(); // when mouse button is clicked, shoot the bullet toward the mouse pos
+                    if (manager.feverOn)
+                    {
+                        radial_shoot();
+                    }
+                    else
+                    {
+                        bullet_shoot(); // when mouse button is clicked, shoot the bullet toward the mouse pos
+                    }
                     StartCoroutine("NewBullet");
                     shootTimer = 0; //쿨타임을 다시 카운트 합니다.
                 }
@@ -89,19 +96,43 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    void radial_shoot()
+    {
+        Vector3 v0 = new Vector3(0, 1, -10);
+        Vector3 v1 = new Vector3(1, 1, -10);
+        Vector3 v2 = new Vector3(1, 0, -10);
+        Vector3 v3 = new Vector3(1, -1, -10);
+        Vector3 v4 = new Vector3(0, -1, -10);
+        Vector3 v5 = new Vector3(-1, -1, -10);
+        Vector3 v6 = new Vector3(-1, 0, -10);
+        Vector3 v7 = new Vector3(-1, 1, -10);
+
+        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v0, Vector3.forward));
+        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v1, Vector3.forward));
+        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v2, Vector3.forward));
+        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v3, Vector3.forward));
+        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v4, Vector3.forward));
+        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v5, Vector3.forward));
+        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v6, Vector3.forward));
+        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v7, Vector3.forward));
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     //rigidBody가 무언가와 충돌할때 호출되는 함수 입니다.
     //Collider2D other로 부딪힌 객체를 받아옵니다.
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (!manager.feverOn)
         {
-            Debug.Log("Player: Enemy End");
-            manager.GameOver();
-        }
-        if (other.gameObject.tag.Equals("bullet") && !other.gameObject.GetComponent<Bullet>().isFirst)
-        {
-            Debug.Log("Bullet End");
-            manager.GameOver();
+            if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            {
+                Debug.Log("Player: Enemy End");
+                manager.GameOver();
+            }
+            if (other.gameObject.tag.Equals("bullet") && !other.gameObject.GetComponent<Bullet>().isFirst)
+            {
+                Debug.Log("Bullet End");
+                manager.GameOver();
+            }
         }
     }
 }
