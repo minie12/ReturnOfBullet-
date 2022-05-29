@@ -48,7 +48,6 @@ public class EnemyRed : MonoBehaviour
         anim.SetBool("bulletHit", true);
         gameObject.GetComponent<Collider2D>().enabled = false;
 
-        manager.EnemyDecrease();
         manager.red++;
 
         Invoke("EnemyDead_",0.4f);
