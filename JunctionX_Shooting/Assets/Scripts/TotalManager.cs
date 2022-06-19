@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class TotalManager : MonoBehaviour
 {
-    public int monNumb;
+    public FeverManager feverManager;
+    public Transform enemyBag;
 
     public int red, green, orange, purple;
     int totalScore;
@@ -22,7 +23,7 @@ public class TotalManager : MonoBehaviour
         scoreText.text = totalScore.ToString();
 
         // end game - no more monster
-        if (monNumb < 1)
+        if (enemyBag.childCount == 0)
         {
             PlayerPrefs.SetInt("score", totalScore);
             SceneManager.LoadScene("Clear");
@@ -34,6 +35,7 @@ public class TotalManager : MonoBehaviour
             if (!feverOn)
             {
                 feverOn = true;
+                feverManager.StartFever();
                 Debug.Log("fever On");
             }
             else
@@ -43,10 +45,6 @@ public class TotalManager : MonoBehaviour
             }
         }
     }
-
-    public void EnemyIncrease(){ monNumb++; }
-    public void EnemyDecrease(){ monNumb--; }
-    public int GetMonNumb(){return monNumb;}
 
     public void GameOver(){
         PlayerPrefs.SetInt("score", totalScore);

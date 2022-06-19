@@ -10,13 +10,15 @@ public class EnemyNormal : MonoBehaviour
     public float growDelay;
     public float splitDelay;
 
-    TotalManager manager; 
+    TotalManager manager;
+    Transform enemyBag;
     Vector3 targetPos;
     bool hit;
 
     void Start(){
         hit = false;
         manager = GameObject.Find("GameObjects").GetComponent<TotalManager>();
+        enemyBag = GameObject.Find("EnemyBag").GetComponent<Transform>();
 
         SetTargetPos(); // set target position before starting to move
 
@@ -50,7 +52,7 @@ public class EnemyNormal : MonoBehaviour
     }
     void GrowUp_(){
         Destroy(gameObject);
-        Instantiate(enemyBig, gameObject.transform.position, Quaternion.identity);
+        Instantiate(enemyBig, gameObject.transform.position, Quaternion.identity, enemyBag);
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -69,7 +71,6 @@ public class EnemyNormal : MonoBehaviour
 
         anim.SetBool("bulletHit", true);
         if(!gameObject.CompareTag("enemyGreen")){
-            manager.EnemyIncrease();
             Invoke("SplitTwo_",splitDelay);
         }
         else
@@ -79,13 +80,13 @@ public class EnemyNormal : MonoBehaviour
         Destroy(gameObject);
 
         // divide into two
-        Instantiate(enemySmall, gameObject.transform.position, Quaternion.identity);
-        Instantiate(enemySmall, gameObject.transform.position, Quaternion.identity);
+        Instantiate(enemySmall, gameObject.transform.position, Quaternion.identity, enemyBag);
+        Instantiate(enemySmall, gameObject.transform.position, Quaternion.identity, enemyBag);
     }
 
     void SplitTwoG_(){
         // for green enemy
         Destroy(gameObject);
-        Instantiate(enemySmall, gameObject.transform.position, Quaternion.identity);
+        Instantiate(enemySmall, gameObject.transform.position, Quaternion.identity, enemyBag);
     }
 }
