@@ -10,6 +10,8 @@ public class EnemyRed : MonoBehaviour
     TotalManager manager; 
     bool hit;
 
+    float splitDelay = 0.4f;
+
     void Start(){
         hit = false;
         manager = GameObject.Find("GameObjects").GetComponent<TotalManager>();
@@ -50,9 +52,19 @@ public class EnemyRed : MonoBehaviour
 
         manager.red++;
 
-        Invoke("EnemyDead_",0.4f);
+        Invoke("EnemyDead_",splitDelay);
     }
     void EnemyDead_(){
+        Destroy(gameObject);
+    }
+
+    public void DestroyEnemy(){
+        StartCoroutine("DestroyEnemy_");
+    }
+    IEnumerator DestroyEnemy_(){
+        anim.SetBool("bulletHit", true);
+
+        yield return new WaitForSeconds(splitDelay);
         Destroy(gameObject);
     }
 }
