@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     public GameObject bullet;
 
+    Transform wall_east, wall_west, wall_south, wall_north;
+
     // shooting 
     public int magazine;
     public Slider magazines;
@@ -19,7 +21,26 @@ public class PlayerMovement : MonoBehaviour
 
     void Start(){
         magazine = 10;
+
+        wall_east = GameObject.Find("wall_east").GetComponent<Transform>();
+        wall_west = GameObject.Find("wall_west").GetComponent<Transform>();
+        wall_south = GameObject.Find("wall_south").GetComponent<Transform>();
+        wall_north = GameObject.Find("wall_north").GetComponent<Transform>();
     }
+
+    //플레이어 화면 이탈 방지---
+    void moveRange(){
+        Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+
+        if(pos.y > 0.925f) pos.y = 0.925f; // 화면 상단으로 이탈했을 때
+        if(pos.y < 0.076f) pos.y = 0.076f; // 화면 하단으로 이탈했을 때
+        if(pos.x > 0.74f) pos.x = 0.74f; // 우측
+        if(pos.x < 0.26f) pos.x = 0.26f; // 좌측
+
+        // 위치 보정
+        transform.position = Camera.main.ViewportToWorldPoint(pos);
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -68,6 +89,9 @@ public class PlayerMovement : MonoBehaviour
                 shootTimer += Time.deltaTime; //쿨타임을 카운트 합니다.
             }   
         }
+
+        moveRange(); // 플레이어 화면 이탈 방지 (이거 지우면안됨)
+
     }
 
     IEnumerator NewBullet()
