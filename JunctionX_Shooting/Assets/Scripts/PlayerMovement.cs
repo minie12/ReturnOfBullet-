@@ -32,9 +32,9 @@ public class PlayerMovement : MonoBehaviour
     void moveRange(){
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
 
-        if(pos.y > 0.925f) pos.y = 0.925f; // 화면 상단으로 이탈했을 때
+        if(pos.y > 0.926f) pos.y = 0.926f; // 화면 상단으로 이탈했을 때
         if(pos.y < 0.076f) pos.y = 0.076f; // 화면 하단으로 이탈했을 때
-        if(pos.x > 0.74f) pos.x = 0.74f; // 우측
+        if(pos.x > 0.73f) pos.x = 0.73f; // 우측
         if(pos.x < 0.26f) pos.x = 0.26f; // 좌측
 
         // 위치 보정
@@ -111,12 +111,12 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 mouse = Input.mousePosition;
         Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(new Vector3(
-                                                            mouse.x,
-                                                            mouse.y,
+                                                            MousePos.x,
+                                                            MousePos.y,
                                                             gameObject.transform.position.z));
         Vector3 forward = mouseWorld - gameObject.transform.position;
 
-        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(forward, Vector3.forward));      //총알 생성
+        Instantiate(bullet, transform.GetChild(0).gameObject.transform.position, Quaternion.LookRotation(forward, Vector3.forward));      //총알 생성
 
     }
 
