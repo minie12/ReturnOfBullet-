@@ -89,4 +89,14 @@ public class EnemyNormal : MonoBehaviour
         Destroy(gameObject);
         Instantiate(enemySmall, gameObject.transform.position, Quaternion.identity, enemyBag);
     }
+
+    public void DestroyEnemy(){
+        StartCoroutine("DestroyEnemy_");
+    }
+    IEnumerator DestroyEnemy_(){
+        anim.SetBool("bulletHit", true);
+
+        yield return new WaitForSeconds(splitDelay);
+        Destroy(gameObject);
+    }
 }

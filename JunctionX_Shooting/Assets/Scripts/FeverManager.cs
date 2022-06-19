@@ -11,7 +11,7 @@ public class FeverManager : MonoBehaviour
     public TotalManager manager;
     public GameObject enemyP;
     public Transform enemyBag;
-
+    
 
     public void StartFever()
     {
@@ -21,4 +21,15 @@ public class FeverManager : MonoBehaviour
             GameObject temp = Instantiate(enemyP, pos, Quaternion.identity, enemyBag);
         }
     } 
+
+    public void EndFever(){
+        foreach(Transform child in enemyBag){
+            if(child.gameObject.tag == "enemyRed"){
+                child.gameObject.GetComponent<EnemyRed>().DestroyEnemy();
+            }
+            else{
+                child.gameObject.GetComponent<EnemyNormal>().DestroyEnemy();
+            }
+        }
+    }
 }
