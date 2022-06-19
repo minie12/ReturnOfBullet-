@@ -380,7 +380,7 @@ PrefabInstance:
     - target: {fileID: 2329660664803258739, guid: ff6067b1cb343c7488d08e39a2e85383,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2329660664803258505, guid: ff6067b1cb343c7488d08e39a2e85383,
         type: 3}
@@ -885,7 +885,7 @@ PrefabInstance:
     - target: {fileID: 1468680647446442410, guid: 744efec7975ec984984bdbcfb2d86753,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1468680647446442414, guid: 744efec7975ec984984bdbcfb2d86753,
         type: 3}
@@ -1350,13 +1350,13 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 879185297}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0016307831, y: 0.030846596}
+  m_Offset: {x: 0.052970886, y: -0.078356266}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1367,7 +1367,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 8.0150585, y: 7.98435}
+  m_Size: {x: 8.997892, y: 8.85798}
   m_EdgeRadius: 0
 --- !u!212 &879185301
 SpriteRenderer:
@@ -2338,7 +2338,7 @@ PrefabInstance:
     - target: {fileID: 1468680647446442410, guid: 744efec7975ec984984bdbcfb2d86753,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1468680647446442414, guid: 744efec7975ec984984bdbcfb2d86753,
         type: 3}
@@ -2448,6 +2448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c497e8a2a1c03b049aa6d4d00b98b5d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyP: {fileID: 1468680647446442410, guid: 744efec7975ec984984bdbcfb2d86753, type: 3}
   feverManager: {fileID: 1917822043}
   enemyBag: {fileID: 1616409739}
   red: 0

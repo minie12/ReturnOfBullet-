@@ -59,7 +59,7 @@ public class EnemyNormal : MonoBehaviour
     {
         if (!hit && other.gameObject.tag.Equals("bullet")){
             hit = true;
-            Destroy(other);
+            Destroy(other.gameObject);
             SplitTwo();
         }
     }
