@@ -41,7 +41,7 @@ public class EnemyRed : MonoBehaviour
     {
         if (!hit && other.gameObject.tag.Equals("bullet")){
             hit = true;
-            Destroy(other);
+            Destroy(other.gameObject);
             EnemyDead();
         }
     }

@@ -56,10 +56,7 @@ public class Bullet : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D other)
     {
-
-        if (other.gameObject.CompareTag("wall")) Debug.Log("ok");
-
-        if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        if (other.gameObject.CompareTag("wall"))
         {
             ExitPos = gameObject.transform.position;
 
@@ -68,9 +65,14 @@ public class Bullet : MonoBehaviour
                 isFirst = false;  //이젠 더이상 첫번째가 아니라고 함
                 direction = Vector3.down;
             }
-
         }
-        else if (other.gameObject.CompareTag("wall")) Destroy(gameObject);
+        
+        if (other.gameObject.CompareTag("outWall")) {
+            if (!isFirst)  //처음 부딪힌 경우
+            {
+                Destroy(gameObject);
+            }
+        }
 
     }
 }
