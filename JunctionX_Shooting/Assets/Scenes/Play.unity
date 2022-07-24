@@ -268,7 +268,7 @@ GameObject:
   m_Component:
   - component: {fileID: 49814769}
   - component: {fileID: 49814770}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: out_west
   m_TagString: outWall
   m_Icon: {fileID: 0}
@@ -1381,7 +1381,7 @@ GameObject:
   - component: {fileID: 879185300}
   m_Layer: 0
   m_Name: background
-  m_TagString: outWall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2212,7 +2212,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1675440262}
   - component: {fileID: 1675440263}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: out_south
   m_TagString: outWall
   m_Icon: {fileID: 0}
@@ -2269,7 +2269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1696731781}
   - component: {fileID: 1696731782}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: out_east
   m_TagString: outWall
   m_Icon: {fileID: 0}
@@ -2403,7 +2403,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1811512981}
   - component: {fileID: 1811512982}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: out_north
   m_TagString: outWall
   m_Icon: {fileID: 0}
