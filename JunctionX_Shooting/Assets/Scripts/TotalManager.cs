@@ -6,20 +6,40 @@ using UnityEngine.SceneManagement;
 
 public class TotalManager : MonoBehaviour
 {
-    private float[,] SpawnPosition = new float[16, 2] { {-6, 6}, {-2.5f, 6}, {2.5f, 6}, {6, 6},
+    enum GameState
+    {
+        READY,
+        MAIN,
+        FEVER
+    };
+
+    private float[,] spawnPosition = new float[16, 2] { {-6, 6}, {-2.5f, 6}, {2.5f, 6}, {6, 6},
                                                         {-6, 1.5f}, {-2.5f, 1.5f}, {2.5f, 1.5f}, {6, 1.5f},
                                                         {-6, -1.5f}, {-2.5f, -1.5f}, {2.5f, -1.5f}, {6, -1.5f},
                                                         {-6, -6}, {-2.5f, -6}, {2.5f, -6}, {6, -6}};
+    private int monsterSpawnNumber = 1;
+
     public GameObject enemyP;
+    private GameState gameState;
 
     public FeverManager feverManager;
     public Transform enemyBag;
 
+    public PlayerMovement player;
     public int red, green, orange, purple;
     int totalScore;
 
     public Text scoreText;
-    public bool feverOn = false;
+
+    public SpriteRenderer backgroundBox;
+    private float org_hue, hue;
+    public float rainbowSpeed;
+
+    private void Start()
+    {
+        Color.RGBToHSV(backgroundBox.color, out org_hue, out _, out _);
+        gameState = GameState.MAIN;
+    }
 
     // Update is called once per frame
     void Update()
@@ -28,18 +48,24 @@ public class TotalManager : MonoBehaviour
         totalScore = red * 5 + green * 3 + orange * 2 + purple;
         scoreText.text = totalScore.ToString();
 
-        // end fever
-        if(enemyBag.childCount == 0 && feverOn){
-            SpawnEnemy();
-            feverOn = false;
-        }
-        // end game - no more monster
-        else if (enemyBag.childCount == 0)
+        if(enemyBag.childCount == 0)
         {
-            PlayerPrefs.SetInt("score", totalScore);
-            SceneManager.LoadScene("Clear");
+            if (gameState == GameState.MAIN)
+            {
+                gameState = GameState.FEVER;
+                feverManager.StartFever();
+                hue = org_hue;
+            }
+            else if(gameState == GameState.FEVER)
+            {
+                player.MoveToMiddle();
+                Invoke("SpawnEnemy", 0.3f);
+                backgroundBox.color = Color.HSVToRGB(org_hue, 1, 1);
+                gameState = GameState.READY;
+            }
         }
 
+        /*
         //fever time
         if (Input.GetMouseButtonDown(1))
         {
@@ -47,7 +73,8 @@ public class TotalManager : MonoBehaviour
             {
                 feverOn = true;
                 feverManager.StartFever();
-                Debug.Log("fever On");
+                Color.RGBToHSV(backgroundBox.color, out hue, out sat, out bri);
+                Debug.Log("fever On" + hue + sat + bri);
             }
             else
             {
@@ -55,19 +82,59 @@ public class TotalManager : MonoBehaviour
                 Debug.Log("fever OFF");
                 feverManager.EndFever();
             }
+        }*/
+
+        if (gameState == GameState.FEVER)
+        {
+            hue += rainbowSpeed / 1000;
+            if (hue >= 1) hue = 0;
+            backgroundBox.color = Color.HSVToRGB(hue, 1, 1);
         }
     }
 
     void SpawnEnemy(){
-        for(int i = 0; i < SpawnPosition.GetLength(0); i+=3)
+        monsterSpawnNumber += 2;
+
+        List<int> randomNumber = new List<int>();
+        GetRandomNumbers(monsterSpawnNumber, ref randomNumber);
+
+        for(int i = 0; i < monsterSpawnNumber; i++)
         {
-            Vector2 pos = new Vector2(SpawnPosition[i,0], SpawnPosition[i,1]);
-            GameObject temp = Instantiate(enemyP, pos, Quaternion.identity, enemyBag);
+            int num = randomNumber[i];
+            Vector2 pos = new Vector2(spawnPosition[num, 0], spawnPosition[num, 1]);
+            Instantiate(enemyP, pos, Quaternion.identity, enemyBag);
+        }
+
+        gameState = GameState.MAIN;
+    }
+
+    void GetRandomNumbers(int count, ref List<int> numbList)
+    {
+        while (numbList.Count < count)
+        {
+            int n = Random.Range(0, spawnPosition.GetLength(0));
+
+            bool repeat = false;
+            foreach(int num in numbList)
+            {
+                if(num == n)
+                {
+                    repeat = true;
+                    break;
+                }
+            }
+
+            if (!repeat) numbList.Add(n);
         }
     }
 
     public void GameOver(){
         PlayerPrefs.SetInt("score", totalScore);
         SceneManager.LoadScene("gameOver");
+    }
+
+    public bool IsFever()
+    {
+        return gameState == GameState.FEVER;
     }
 }

@@ -75,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
                 if (shootTimer > shootDelay ) //쿨타임이 지났는지와, 공격키인 스페이스가 눌려있는지 검사합니다.
                 {
                     magazine--;
-                    if (manager.feverOn)
+                    if (manager.IsFever())
                     {
                         radial_shoot();
                     }
@@ -99,6 +99,11 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(2f);
         magazine++;
 
+    }
+
+    public void MoveToMiddle()
+    {
+        gameObject.transform.position = new Vector3(0, 0, 0);
     }
 
     void bullet_shoot()
@@ -145,7 +150,7 @@ public class PlayerMovement : MonoBehaviour
     //rigidBody가 무언가와 충돌할때 호출되는 함수 입니다.
     //Collider2D other로 부딪힌 객체를 받아옵니다.
     {
-        if (!manager.feverOn)
+        if (!manager.IsFever())
         {
             if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
