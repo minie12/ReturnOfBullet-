@@ -34,8 +34,8 @@ public class PlayerMovement : MonoBehaviour
 
         if(pos.y > 0.926f) pos.y = 0.926f; // 화면 상단으로 이탈했을 때
         if(pos.y < 0.076f) pos.y = 0.076f; // 화면 하단으로 이탈했을 때
-        if(pos.x > 0.73f) pos.x = 0.73f; // 우측
-        if(pos.x < 0.26f) pos.x = 0.26f; // 좌측
+        if(pos.x > 0.765f) pos.x = 0.765f; // 우측
+        if(pos.x < 0.23f) pos.x = 0.23f; // 좌측
 
         // 위치 보정
         transform.position = Camera.main.ViewportToWorldPoint(pos);
