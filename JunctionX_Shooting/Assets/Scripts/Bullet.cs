@@ -37,41 +37,43 @@ public class Bullet : MonoBehaviour
         wallPosition();
     }
 
-    public void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("wall"))
-        {
-            ExitPos = gameObject.transform.position;
+    // public void OnTriggerExit2D(Collider2D other)
+    // {
+    //     if (other.gameObject.CompareTag("wall"))
+    //     {
+    //         ExitPos = gameObject.transform.position;
 
-            if (isFirst)  //처음 부딪힌 경우
-            {
-                direction = Vector3.down;
-                isFirst = false;  //이젠 더이상 첫번째가 아니라고 함
-                Debug.Log("Wall");
-            }
-        }
+    //         if (isFirst)  //처음 부딪힌 경우
+    //         {
+    //             direction = Vector3.down;
+    //             isFirst = false;  //이젠 더이상 첫번째가 아니라고 함
+    //             Debug.Log("Wall");
+    //         }
+    //     }
         
-        if (other.gameObject.CompareTag("outWall")) {
-            if (!isFirst)  //처음 부딪힌 경우
-            {
-                Debug.Log("outWall");
-                Destroy(gameObject);
-            }
-        }
+    //     if (other.gameObject.CompareTag("outWall")) {
+    //         if (!isFirst)  //처음 부딪힌 경우
+    //         {
+    //             Debug.Log("outWall");
+    //             Destroy(gameObject);
+    //         }
+    //     }
 
-    }
+    // }
 
     //화면 이탈 여부---
     void wallPosition(){
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
 
-        if (pos.y > 0.926f || pos.y < 0.076f || pos.x > 0.765f || pos.x < 0.23f) {
+        if (pos.y > 0.956f || pos.y < 0.056f || pos.x > 0.785f || pos.x < 0.21f) {
             if (isFirst)  //처음 부딪힌 경우
             {
+                Debug.Log("position wall first");
                 direction = Vector3.down;
                 isFirst = false;  //이젠 더이상 첫번째가 아니라고 함
 
             } else {
+                Debug.Log("position wallout");
                 Destroy(gameObject);
             }
         }
