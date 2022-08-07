@@ -14,10 +14,12 @@ public class PlayerMovement : MonoBehaviour
     Transform wall_east, wall_west, wall_south, wall_north;
 
     // shooting 
+    public Transform bulletBag;
     public int magazine;
     public Slider magazines;
     const float shootDelay = 0.001f; //레이저를 쏘는 주기를 정해줍니다.
     float shootTimer = 1; //시간을 잴 타이머를 만들어줍니다.
+    bool enableShooting = true;
 
     void Start(){
         magazine = 10;
@@ -27,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
         wall_south = GameObject.Find("wall_south").GetComponent<Transform>();
         wall_north = GameObject.Find("wall_north").GetComponent<Transform>();
     }
+
+    public void SetEnableShooting(bool b) { enableShooting = b; }
 
     //플레이어 화면 이탈 방지---
     void moveRange(){
@@ -81,7 +85,8 @@ public class PlayerMovement : MonoBehaviour
                     }
                     else
                     {
-                        bullet_shoot(); // when mouse button is clicked, shoot the bullet toward the mouse pos
+                        if(enableShooting)
+                            bullet_shoot(); // when mouse button is clicked, shoot the bullet toward the mouse pos
                     }
                     StartCoroutine("NewBullet");
                     shootTimer = 0; //쿨타임을 다시 카운트 합니다.
@@ -121,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
                                                             gameObject.transform.position.z));
         Vector3 forward = mouseWorld - gameObject.transform.position;
 
-        Instantiate(bullet, transform.GetChild(0).gameObject.transform.position, Quaternion.LookRotation(forward, Vector3.forward));      //총알 생성
+        Instantiate(bullet, transform.GetChild(0).gameObject.transform.position, Quaternion.LookRotation(forward, Vector3.forward), bulletBag);      //총알 생성
 
     }
 
@@ -136,14 +141,14 @@ public class PlayerMovement : MonoBehaviour
         Vector3 v6 = new Vector3(-1, 0, -10);
         Vector3 v7 = new Vector3(-1, 1, -10);
 
-        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v0, Vector3.forward));
-        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v1, Vector3.forward));
-        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v2, Vector3.forward));
-        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v3, Vector3.forward));
-        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v4, Vector3.forward));
-        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v5, Vector3.forward));
-        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v6, Vector3.forward));
-        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v7, Vector3.forward));
+        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v0, Vector3.forward), bulletBag);
+        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v1, Vector3.forward), bulletBag);
+        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v2, Vector3.forward), bulletBag);
+        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v3, Vector3.forward), bulletBag);
+        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v4, Vector3.forward), bulletBag);
+        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v5, Vector3.forward), bulletBag);
+        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v6, Vector3.forward), bulletBag);
+        Instantiate(bullet, gameObject.transform.position, Quaternion.LookRotation(v7, Vector3.forward), bulletBag);
     }
 
     void OnTriggerEnter2D(Collider2D other)

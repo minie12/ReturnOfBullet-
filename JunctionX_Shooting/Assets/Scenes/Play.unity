@@ -219,6 +219,7 @@ MonoBehaviour:
   manager: {fileID: 1917822042}
   speed: 4
   bullet: {fileID: 4991549716638805671, guid: 4f3dafee67d742a45ae0b1e7bedb0218, type: 3}
+  bulletBag: {fileID: 1502987280}
   magazine: 0
   magazines: {fileID: 2102826675}
 --- !u!50 &12199567
@@ -2157,6 +2158,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1405023993}
   m_CullTransparentMesh: 0
+--- !u!1 &1502987279
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1502987280}
+  m_Layer: 0
+  m_Name: BulletBag
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1502987280
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1502987279}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.7586218, y: -0.4175784, z: -6.5599055}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1616409738
 GameObject:
   m_ObjectHideFlags: 0
@@ -2669,6 +2700,7 @@ MonoBehaviour:
   enemyP: {fileID: 1468680647446442410, guid: 744efec7975ec984984bdbcfb2d86753, type: 3}
   feverManager: {fileID: 1917822043}
   enemyBag: {fileID: 1616409739}
+  bulletBag: {fileID: 1502987280}
   player: {fileID: 12199566}
   red: 0
   green: 0

@@ -24,6 +24,7 @@ public class TotalManager : MonoBehaviour
 
     public FeverManager feverManager;
     public Transform enemyBag;
+    public Transform bulletBag;
 
     public PlayerMovement player;
     public int red, green, orange, purple;
@@ -58,34 +59,38 @@ public class TotalManager : MonoBehaviour
             }
             else if(gameState == GameState.FEVER)
             {
+                removeBullets();
+                player.SetEnableShooting(false);
                 player.MoveToMiddle();
-                Invoke("SpawnEnemy", 0.3f);
+                Invoke("SpawnEnemy", 0.5f);
                 backgroundBox.color = Color.HSVToRGB(org_hue, 1, 1);
                 gameState = GameState.READY;
             }
         }
 
-        /*
-        //fever time
-        if (Input.GetMouseButtonDown(1))
-        {
-            if (!feverOn)
-            {
-                feverOn = true;
-                feverManager.StartFever();
-                Color.RGBToHSV(backgroundBox.color, out hue, out sat, out bri);
-                Debug.Log("fever On" + hue + sat + bri);
-            }
-            else
-            {
-                //feverOn = false;
-                Debug.Log("fever OFF");
-                feverManager.EndFever();
-            }
-        }*/
+        
+        ////fever time
+        //if (Input.GetMouseButtonDown(1))
+        //{
+        //    if (gameState == GameState.MAIN)
+        //    {
+        //        gameState = GameState.FEVER;
+        //        feverManager.StartFever();
+        //        hue = org_hue;
+        //    }
+        //    else if(gameState == GameState.FEVER)
+        //    {
+        //        feverManager.SetAndCheckFever(15.0f);
+        //        player.MoveToMiddle();
+        //        Invoke("SpawnEnemy", 0.3f);
+        //        backgroundBox.color = Color.HSVToRGB(org_hue, 1, 1);
+        //        gameState = GameState.READY;
+        //    }
+        //}
 
         if (gameState == GameState.FEVER)
         {
+            feverManager.SetAndCheckFever(Time.deltaTime);
             hue += rainbowSpeed / 1000;
             if (hue >= 1) hue = 0;
             backgroundBox.color = Color.HSVToRGB(hue, 1, 1);
@@ -105,6 +110,7 @@ public class TotalManager : MonoBehaviour
             Instantiate(enemyP, pos, Quaternion.identity, enemyBag);
         }
 
+        player.SetEnableShooting(true);
         gameState = GameState.MAIN;
     }
 
@@ -125,6 +131,14 @@ public class TotalManager : MonoBehaviour
             }
 
             if (!repeat) numbList.Add(n);
+        }
+    }
+
+    void removeBullets() 
+    {
+        foreach (Transform child in bulletBag)
+        {
+            Destroy(child.gameObject);
         }
     }
 

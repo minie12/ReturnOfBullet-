@@ -11,16 +11,29 @@ public class FeverManager : MonoBehaviour
     public TotalManager manager;
     public GameObject enemyP;
     public Transform enemyBag;
-    
+
+
+    private float feverTime = 0.0f;
+    private const float totalFeverTime = 7.0f;
 
     public void StartFever()
     {
-        for(int i = 0; i < feverPosition.GetLength(0); i++)
+        feverTime = totalFeverTime;
+        for (int i = 0; i < feverPosition.GetLength(0); i++)
         {
-            Vector2 pos = new Vector2(feverPosition[i,0], feverPosition[i,1]);
+            Vector2 pos = new Vector2(feverPosition[i, 0], feverPosition[i, 1]);
             GameObject temp = Instantiate(enemyP, pos, Quaternion.identity, enemyBag);
         }
-    } 
+    }
+    public void SetAndCheckFever(float t) 
+    { 
+        feverTime -= t;
+        if (feverTime < 0)
+        {
+            EndFever();
+        }
+    }
+
 
     public void EndFever(){
         foreach(Transform child in enemyBag){
