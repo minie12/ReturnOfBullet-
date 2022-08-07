@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "112199541586",
+    "firebase_url": "https://return-of-bullet-default-rtdb.firebaseio.com",
+    "project_id": "return-of-bullet",
+    "storage_bucket": "return-of-bullet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:112199541586:android:69595996f27682c338908b",
+        "android_client_info": {
+          "package_name": "King.ReturnofBullet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "112199541586-rai2ua236drrash3kke85a85t87b3ght.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4LOfKTcltDpkG-hby60BzhmqUhN094Oc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "112199541586-rai2ua236drrash3kke85a85t87b3ght.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
