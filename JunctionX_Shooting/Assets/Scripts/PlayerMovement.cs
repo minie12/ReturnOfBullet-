@@ -157,14 +157,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!manager.IsFever())
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") || (other.gameObject.tag.Equals("bullet") && !other.gameObject.GetComponent<Bullet>().isFirst))
             {
-                Debug.Log("Player: Enemy End");
-                manager.GameOver();
-            }
-            if (other.gameObject.tag.Equals("bullet") && !other.gameObject.GetComponent<Bullet>().isFirst)
-            {
-                Debug.Log("Bullet End");
                 manager.GameOver();
             }
         }
