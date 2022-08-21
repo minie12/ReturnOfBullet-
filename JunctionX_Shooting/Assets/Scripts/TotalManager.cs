@@ -33,11 +33,15 @@ public class TotalManager : MonoBehaviour
     public Text scoreText;
 
     public SpriteRenderer backgroundBox;
+    public SpriteRenderer feverBackSprite;
+    public GameObject feverBackground;
+    public Animator feverBackAnimate;
     private float org_hue, hue;
     public float rainbowSpeed;
 
     private void Start()
     {
+        Color.RGBToHSV(feverBackSprite.color, out org_hue, out _, out _);
         Color.RGBToHSV(backgroundBox.color, out org_hue, out _, out _);
         gameState = GameState.MAIN;
     }
@@ -54,15 +58,19 @@ public class TotalManager : MonoBehaviour
             if (gameState == GameState.MAIN)
             {
                 gameState = GameState.FEVER;
+                feverBackground.gameObject.SetActive(true);
+                // if(feverBackAnimate.GetCurrentAnimatorStateInfo(0).normalizedTime>=1f) {}
                 feverManager.StartFever();
                 hue = org_hue;
             }
             else if(gameState == GameState.FEVER)
             {
+                feverBackground.gameObject.SetActive(false);
                 removeBullets();
                 player.SetEnableShooting(false);
                 player.MoveToMiddle();
                 Invoke("SpawnEnemy", 0.5f);
+                feverBackSprite.color = Color.HSVToRGB(org_hue, 1, 1);
                 backgroundBox.color = Color.HSVToRGB(org_hue, 1, 1);
                 gameState = GameState.READY;
             }
@@ -90,10 +98,12 @@ public class TotalManager : MonoBehaviour
 
         if (gameState == GameState.FEVER)
         {
+            feverBackground.gameObject.SetActive(true);
             feverManager.SetAndCheckFever(Time.deltaTime);
             hue += rainbowSpeed / 1000;
             if (hue >= 1) hue = 0;
             backgroundBox.color = Color.HSVToRGB(hue, 1, 1);
+            feverBackSprite.color = Color.HSVToRGB(hue, 1, 1);
         }
     }
 
