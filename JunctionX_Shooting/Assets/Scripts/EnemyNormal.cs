@@ -91,6 +91,7 @@ public class EnemyNormal : MonoBehaviour
     }
 
     public void DestroyEnemy(){
+        CancelInvoke();
         StartCoroutine("DestroyEnemy_");
     }
     IEnumerator DestroyEnemy_(){
@@ -98,5 +99,11 @@ public class EnemyNormal : MonoBehaviour
 
         yield return new WaitForSeconds(splitDelay);
         Destroy(gameObject);
+    }
+
+    public void StopMovement()
+    {
+        CancelInvoke();
+        this.enabled = false;
     }
 }

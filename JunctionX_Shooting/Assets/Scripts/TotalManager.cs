@@ -154,6 +154,35 @@ public class TotalManager : MonoBehaviour
 
     public void GameOver(){
         PlayerPrefs.SetInt("score", totalScore);
+
+        // stop player from moving
+        player.enabled = false;
+
+        for(int i = 0; i < enemyBag.childCount; i++)
+        {
+            GameObject enemy = enemyBag.GetChild(i).gameObject;
+            // stop all monsters movement
+            if (enemy.tag.Equals("enemyRed"))
+            {
+                enemy.GetComponent<EnemyRed>().StopMovement();
+            }
+            else
+            {
+                enemy.GetComponent<EnemyNormal>().StopMovement();
+            }
+        }
+
+        for (int i = 0; i < bulletBag.childCount; i++)
+        {
+            // stop all bullets movment
+            bulletBag.GetChild(i).gameObject.GetComponent<Bullet>().enabled = false;
+        }
+
+        Invoke("GameOver_", 1.5f);
+    }
+
+    void GameOver_()
+    {
         SceneManager.LoadScene("gameOver");
     }
 

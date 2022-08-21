@@ -67,4 +67,10 @@ public class EnemyRed : MonoBehaviour
         yield return new WaitForSeconds(splitDelay);
         Destroy(gameObject);
     }
+
+    public void StopMovement()
+    {
+        CancelInvoke();
+        this.enabled = false;
+    }
 }
