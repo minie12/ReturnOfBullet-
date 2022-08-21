@@ -154,11 +154,11 @@ public class TotalManager : MonoBehaviour
             // stop all monsters movement
             if (enemy.tag.Equals("enemyRed"))
             {
-                enemy.GetComponent<EnemyRed>().enabled = false;
+                enemy.GetComponent<EnemyRed>().StopMovement();
             }
             else
             {
-                enemy.GetComponent<EnemyNormal>().enabled = false;
+                enemy.GetComponent<EnemyNormal>().StopMovement();
             }
         }
 
