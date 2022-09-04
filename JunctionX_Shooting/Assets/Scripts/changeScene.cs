@@ -89,6 +89,7 @@ public class changeScene : MonoBehaviour
             scores[i] = PlayerPrefs.GetInt(i + "score", 0);
         }
     }
+
     void dataSave()
     {
         if (length > 5)
@@ -107,7 +108,7 @@ public class changeScene : MonoBehaviour
             Debug.Log(names[i]);
                 PlayerPrefs.SetInt(i + "score", scores[i]);
             }
-        SceneManager.LoadScene("Rank");
+        // SceneManager.LoadScene("Rank");
     }
 
     public void delete()

@@ -5,22 +5,23 @@ using UnityEngine.UI;
 
 public class Ranking : MonoBehaviour
 {
-    int length=5;
-    int[] scores = new int[5];
-    string[] names = new string[5];
+    int length=10;
+
+    int[] scores = new int[10];
+    string[] names = new string[10];
+
     public Text[] ranks;
+
     // Start is called before the first frame update
     void Start()
     {
         dataLoad();
-
     }
 
     // Update is called once per frame
     void Update()
     {
         dataLoad();
-
         for (int i = 0; i < length; i++)
         {
             ranks[i].gameObject.SetActive(true);
