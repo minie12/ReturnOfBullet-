@@ -807,12 +807,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 845674d1a224b5743aa20300a4797aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emailField: {fileID: 1189118918}
-  levelField: {fileID: 126483408}
+  usernameField: {fileID: 1189118918}
+  scoreField: {fileID: 126483408}
   goldField: {fileID: 420576581}
   text: {fileID: 2125776893}
-  email: 
-  level: 
+  username: 
+  score: 0
   gold: 
 --- !u!1 &926543596
 GameObject:
@@ -1162,7 +1162,7 @@ GameObject:
   - component: {fileID: 1189118919}
   - component: {fileID: 1189118918}
   m_Layer: 5
-  m_Name: email
+  m_Name: username
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
