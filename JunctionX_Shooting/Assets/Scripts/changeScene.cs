@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Text.RegularExpressions;
 
 
 public class changeScene : MonoBehaviour
@@ -18,12 +19,16 @@ public class changeScene : MonoBehaviour
     void Start()
     {
         scoreText.text = PlayerPrefs.GetInt("score", 0).ToString();
+        username.characterLimit = 10;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        string str;
+        str = username.text;
+        str = Regex.Replace(str, @"[^0-9a-zA-Z가-힣]", "");
+        username.text = str;
     }
     public void ChangeScene(string sceneName)
     {
