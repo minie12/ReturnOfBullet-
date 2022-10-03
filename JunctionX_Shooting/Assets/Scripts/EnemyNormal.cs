@@ -17,7 +17,7 @@ public class EnemyNormal : MonoBehaviour
 
     void Start(){
         hit = false;
-        manager = GameObject.Find("GameObjects").GetComponent<TotalManager>();
+        manager = GameObject.Find("BlueBox").GetComponent<TotalManager>();
         enemyBag = GameObject.Find("EnemyBag").GetComponent<Transform>();
 
         SetTargetPos(); // set target position before starting to move

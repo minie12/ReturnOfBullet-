@@ -14,7 +14,7 @@ public class EnemyRed : MonoBehaviour
 
     void Start(){
         hit = false;
-        manager = GameObject.Find("GameObjects").GetComponent<TotalManager>();
+        manager = GameObject.Find("BlueBox").GetComponent<TotalManager>();
     }
 
     void Update()

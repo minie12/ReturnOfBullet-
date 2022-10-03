@@ -32,6 +32,7 @@ public class TotalManager : MonoBehaviour
 
     public Text scoreText;
 
+    public Animator animBG;
     public SpriteRenderer backgroundBox;
     public SpriteRenderer feverBackSprite;
     public GameObject feverBackground;
@@ -59,6 +60,7 @@ public class TotalManager : MonoBehaviour
                 gameState = GameState.FEVER;
                 feverBackground.gameObject.SetActive(true);
                 feverManager.StartFever();
+                animBG.SetBool("isFever", true);
                 hue = org_hue;
             }
             else if(gameState == GameState.FEVER)
@@ -71,6 +73,7 @@ public class TotalManager : MonoBehaviour
                 feverBackSprite.color = Color.HSVToRGB(org_hue, 1, 1);
                 backgroundBox.color = Color.HSVToRGB(org_hue, 1, 1);
                 gameState = GameState.READY;
+                animBG.SetBool("isFever", false);
             }
         }
         
