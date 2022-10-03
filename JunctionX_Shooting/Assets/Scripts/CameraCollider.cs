@@ -39,25 +39,25 @@ public class CameraCollider : MonoBehaviour
     }
 
     //총알 화면 이탈 여부---
-    void BulletMoveRange(Vector3 pos){
+    //void BulletMoveRange(Vector3 pos){
 
-        bool trigger = false;
+    //    bool trigger = false;
 
-        if(pos.y > north) trigger = true;
-        if(pos.y < south) trigger = true;
-        if(pos.x > east) trigger = true;
-        if(pos.x < west) trigger = true;
+    //    if(pos.y > north) trigger = true;
+    //    if(pos.y < south) trigger = true;
+    //    if(pos.x > east) trigger = true;
+    //    if(pos.x < west) trigger = true;
 
-        // if (trigger) {
-        //     if (isFirst)  //처음 부딪힌 경우
-        //     {
-        //         direction = Vector3.down;
-        //         isFirst = false;  //이젠 더이상 첫번째가 아니라고 함
+    //    // if (trigger) {
+    //    //     if (isFirst)  //처음 부딪힌 경우
+    //    //     {
+    //    //         direction = Vector3.down;
+    //    //         isFirst = false;  //이젠 더이상 첫번째가 아니라고 함
 
-        //     } else {
-        //         Destroy(gameObject);
-        //     }
-        // }
-    } 
+    //    //     } else {
+    //    //         Destroy(gameObject);
+    //    //     }
+    //    // }
+    //} 
 
 }
