@@ -83,7 +83,7 @@ public class DatabaseManager : MonoBehaviour
 
     public void OnClickLoadButton()
     {
-        FirebaseDatabase.DefaultInstance.GetReference("rank").OrderByChild("score").LimitToLast(10).ValueChanged+=HandleValueChanged ;
+        FirebaseDatabase.DefaultInstance.GetReference("rank").OrderByChild("score").LimitToFirst(10).ValueChanged+=HandleValueChanged ;
     }
     void HandleValueChanged(object sender, ValueChangedEventArgs args)
     {
