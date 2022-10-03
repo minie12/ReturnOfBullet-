@@ -68,12 +68,10 @@ public class Bullet : MonoBehaviour
         if (pos.y > 0.956f || pos.y < 0.056f || pos.x > 0.785f || pos.x < 0.21f) {
             if (isFirst)  //처음 부딪힌 경우
             {
-                Debug.Log("position wall first");
                 direction = Vector3.down;
                 isFirst = false;  //이젠 더이상 첫번째가 아니라고 함
 
             } else {
-                Debug.Log("position wallout");
                 Destroy(gameObject);
             }
         }
