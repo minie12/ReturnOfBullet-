@@ -45,6 +45,16 @@ public class DatabaseManager : MonoBehaviour
         usernameField.characterLimit = 10;
         databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
         OnClickLoadButton();
+        Transform ranking = LeaderBoard.transform.GetChild(9).GetChild(1);
+        string lastscore = ranking.GetComponent<Text>().text;
+        if (lastscore == "")
+        {
+            lastscore = "0";
+        }
+        if (score <= int.Parse(lastscore))
+        {
+            savebttn.gameObject.SetActive(false);
+        }
     }
     void Update()
     {
@@ -59,6 +69,7 @@ public class DatabaseManager : MonoBehaviour
         username = usernameField.text.Trim();
 
         //var data = new Data(level, gold);
+        score = score * -1;
         Rank rank = new Rank(username, score, DateTime.Now.ToString());
         string jsonData = JsonUtility.ToJson(rank);
 
@@ -90,9 +101,9 @@ public class DatabaseManager : MonoBehaviour
             {
                 IDictionary rank = (IDictionary)data.Value;
                 // JSON은 사전 형태이기 때문에 딕셔너리 형으로 변환
-                Transform ranking = LeaderBoard.transform.GetChild(9 - i);
+                Transform ranking = LeaderBoard.transform.GetChild(i);
                 ranking.GetChild(0).GetComponent<Text>().text = rank["name"].ToString();
-                ranking.GetChild(1).GetComponent<Text>().text = rank["score"].ToString();
+                ranking.GetChild(1).GetComponent<Text>().text = rank["score"].ToString().Substring(1);
                 i++;
             }
             catch { }
