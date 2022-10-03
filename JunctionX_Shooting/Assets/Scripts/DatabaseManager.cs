@@ -86,12 +86,16 @@ public class DatabaseManager : MonoBehaviour
         // Do something with the data in args.Snapshot
         foreach (DataSnapshot data in args.Snapshot.Children)
         {
-            IDictionary rank = (IDictionary)data.Value;
-            // JSON은 사전 형태이기 때문에 딕셔너리 형으로 변환
-            Transform ranking = LeaderBoard.transform.GetChild(9 - i);
-            ranking.GetChild(0).GetComponent<Text>().text = rank["name"].ToString();
-            ranking.GetChild(1).GetComponent<Text>().text = rank["score"].ToString();
-            i++;
+            try
+            {
+                IDictionary rank = (IDictionary)data.Value;
+                // JSON은 사전 형태이기 때문에 딕셔너리 형으로 변환
+                Transform ranking = LeaderBoard.transform.GetChild(9 - i);
+                ranking.GetChild(0).GetComponent<Text>().text = rank["name"].ToString();
+                ranking.GetChild(1).GetComponent<Text>().text = rank["score"].ToString();
+                i++;
+            }
+            catch { }
         }
     }
 
