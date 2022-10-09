@@ -3136,11 +3136,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c497e8a2a1c03b049aa6d4d00b98b5d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bgAudio: {fileID: 641329374}
+  bgClips:
+  - {fileID: 8300000, guid: ed9651b96527d124a902b53828bd4183, type: 3}
+  - {fileID: 8300000, guid: af7b5725dba7c784fa610555538b2896, type: 3}
   enemyP: {fileID: 1468680647446442410, guid: 744efec7975ec984984bdbcfb2d86753, type: 3}
   feverManager: {fileID: 1917822043}
   enemyBag: {fileID: 1616409739}
   bulletBag: {fileID: 1502987280}
   player: {fileID: 12199566}
+  enemyScoreTexts:
+  - {fileID: 980502476}
+  - {fileID: 1253106702}
+  - {fileID: 1185967042}
+  - {fileID: 723658636}
   red: 0
   green: 0
   orange: 0

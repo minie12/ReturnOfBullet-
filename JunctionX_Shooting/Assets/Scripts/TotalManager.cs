@@ -13,6 +13,9 @@ public class TotalManager : MonoBehaviour
         FEVER
     };
 
+    public AudioSource bgAudio;
+    public AudioClip[] bgClips;
+
     private float[,] spawnPosition = new float[16, 2] { {-6, 6}, {-2.5f, 6}, {2.5f, 6}, {6, 6},
                                                         {-6, 1.5f}, {-2.4f, 1.5f}, {2.6f, 1.5f}, {6, 1.5f},
                                                         {-6, -1.5f}, {-2.4f, -1.5f}, {2.6f, -1.5f}, {6, -1.5f},
@@ -27,6 +30,8 @@ public class TotalManager : MonoBehaviour
     public Transform bulletBag;
 
     public PlayerMovement player;
+    public Text[] enemyScoreTexts;
+    int[] enemyScores = new int[4] { 1, 2, 3, 5 };
     public int red, green, orange, purple;
     int totalScore;
     int highScore;
@@ -47,19 +52,28 @@ public class TotalManager : MonoBehaviour
         Color.RGBToHSV(feverBackSprite.color, out org_hue, out _, out _);
         Color.RGBToHSV(backgroundBox.color, out org_hue, out _, out _);
         gameState = GameState.MAIN;
+
+        // set UI Score text
+        enemyScoreTexts[0].text = "+" + enemyScores[0].ToString();
+        enemyScoreTexts[1].text = "+" + enemyScores[1].ToString();
+        enemyScoreTexts[2].text = "+" + enemyScores[2].ToString();
+        enemyScoreTexts[3].text = "+" + enemyScores[3].ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
         // calc score
-        totalScore = red * 5 + green * 3 + orange * 2 + purple;
+        totalScore = red * enemyScores[3] + green * enemyScores[2] + orange * enemyScores[1] + purple * enemyScores[0];
         scoreText.text = totalScore.ToString();
 
         if(enemyBag.childCount == 0)
         {
             if (gameState == GameState.MAIN)
             {
+                bgAudio.clip = bgClips[1];
+                bgAudio.Play();
+
                 gameState = GameState.FEVER;
                 feverBackground.gameObject.SetActive(true);
                 feverManager.StartFever();
@@ -68,8 +82,12 @@ public class TotalManager : MonoBehaviour
             }
             else if(gameState == GameState.FEVER)
             {
+                bgAudio.clip = bgClips[0];
+                bgAudio.Play();
+                // end fever
                 feverBackground.gameObject.SetActive(false);
                 removeBullets();
+                UpdateEnemyScores();
                 player.SetEnableMovement(false);
                 player.SetEnableShooting(false);
                 player.MoveToMiddle();
@@ -108,6 +126,20 @@ public class TotalManager : MonoBehaviour
         player.SetEnableMovement(true);
         player.SetEnableShooting(true);
         gameState = GameState.MAIN;
+    }
+
+    void UpdateEnemyScores()
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            enemyScores[i]++;
+        }
+
+        // set UI Score text
+        enemyScoreTexts[0].text = "+" + enemyScores[0].ToString();
+        enemyScoreTexts[1].text = "+" + enemyScores[1].ToString();
+        enemyScoreTexts[2].text = "+" + enemyScores[2].ToString();
+        enemyScoreTexts[3].text = "+" + enemyScores[3].ToString();
     }
 
     void GetRandomNumbers(int count, ref List<int> numbList)
