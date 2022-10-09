@@ -47,6 +47,7 @@ public class TotalManager : MonoBehaviour
 
     private void Start()
     {
+        bgAudio.volume = PlayerPrefs.GetFloat("volume", 0.2f);
         highScore = PlayerPrefs.GetInt("highscore", 0);
         highScoreText.text = highScore.ToString();
         Color.RGBToHSV(feverBackSprite.color, out org_hue, out _, out _);

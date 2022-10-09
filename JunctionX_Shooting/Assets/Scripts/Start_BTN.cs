@@ -6,11 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class Start_BTN : MonoBehaviour
 {
-    
     public GameObject start_mon, tutorial_mon;
+
+    public AudioSource audioSource;
+    public Slider soundVolume;
+
     // Start is called before the first frame update
     void Start()
     {
+        audioSource.volume = PlayerPrefs.GetFloat("volume", 0.2f);
+        soundVolume.value = PlayerPrefs.GetFloat("volume", 0.2f);
         start_mon.gameObject.SetActive(false);
         tutorial_mon.gameObject.SetActive(false);
     }
@@ -41,6 +46,7 @@ public class Start_BTN : MonoBehaviour
 
     public void goPlay()
     {
+        PlayerPrefs.SetFloat("volume", soundVolume.value);
         SceneManager.LoadScene("Play");
     }
 

@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 
 public class changeScene : MonoBehaviour
 {
+    public AudioSource audioSource;
     public InputField username;
     int length, totalScore, highScore;
     int[] scores = new int[6];
@@ -18,6 +19,7 @@ public class changeScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioSource.volume = PlayerPrefs.GetFloat("volume", 0.2f);
         scoreText.text = PlayerPrefs.GetInt("score", 0).ToString();
         highScoreText.text = PlayerPrefs.GetInt("highscore", 0).ToString();
         username.characterLimit = 10;

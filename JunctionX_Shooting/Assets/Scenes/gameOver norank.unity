@@ -1006,6 +1006,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abf4bd2d8b53c4843876cbab8944f402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 451429354}
   username: {fileID: 1417953405}
   scoreText: {fileID: 73854449}
   highScoreText: {fileID: 459264383}
