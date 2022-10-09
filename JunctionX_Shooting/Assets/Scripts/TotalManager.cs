@@ -14,8 +14,8 @@ public class TotalManager : MonoBehaviour
     };
 
     private float[,] spawnPosition = new float[16, 2] { {-6, 6}, {-2.5f, 6}, {2.5f, 6}, {6, 6},
-                                                        {-6, 1.5f}, {-2.5f, 1.5f}, {2.5f, 1.5f}, {6, 1.5f},
-                                                        {-6, -1.5f}, {-2.5f, -1.5f}, {2.5f, -1.5f}, {6, -1.5f},
+                                                        {-6, 1.5f}, {-2.4f, 1.5f}, {2.6f, 1.5f}, {6, 1.5f},
+                                                        {-6, -1.5f}, {-2.4f, -1.5f}, {2.6f, -1.5f}, {6, -1.5f},
                                                         {-6, -6}, {-2.5f, -6}, {2.5f, -6}, {6, -6}};
     private int monsterSpawnNumber = 1;
 
@@ -70,6 +70,7 @@ public class TotalManager : MonoBehaviour
             {
                 feverBackground.gameObject.SetActive(false);
                 removeBullets();
+                player.SetEnableMovement(false);
                 player.SetEnableShooting(false);
                 player.MoveToMiddle();
                 Invoke("SpawnEnemy", 0.5f);
@@ -104,6 +105,7 @@ public class TotalManager : MonoBehaviour
             Instantiate(enemyP, pos, Quaternion.identity, enemyBag);
         }
 
+        player.SetEnableMovement(true);
         player.SetEnableShooting(true);
         gameState = GameState.MAIN;
     }
