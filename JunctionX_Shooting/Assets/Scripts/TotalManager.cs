@@ -32,12 +32,16 @@ public class TotalManager : MonoBehaviour
 
     public Text scoreText;
 
+    public Animator animBG;
     public SpriteRenderer backgroundBox;
+    public SpriteRenderer feverBackSprite;
+    public GameObject feverBackground;
     private float org_hue, hue;
     public float rainbowSpeed;
 
     private void Start()
     {
+        Color.RGBToHSV(feverBackSprite.color, out org_hue, out _, out _);
         Color.RGBToHSV(backgroundBox.color, out org_hue, out _, out _);
         gameState = GameState.MAIN;
     }
@@ -54,46 +58,33 @@ public class TotalManager : MonoBehaviour
             if (gameState == GameState.MAIN)
             {
                 gameState = GameState.FEVER;
+                feverBackground.gameObject.SetActive(true);
                 feverManager.StartFever();
+                animBG.SetBool("isFever", true);
                 hue = org_hue;
             }
             else if(gameState == GameState.FEVER)
             {
+                feverBackground.gameObject.SetActive(false);
                 removeBullets();
                 player.SetEnableShooting(false);
                 player.MoveToMiddle();
                 Invoke("SpawnEnemy", 0.5f);
+                feverBackSprite.color = Color.HSVToRGB(org_hue, 1, 1);
                 backgroundBox.color = Color.HSVToRGB(org_hue, 1, 1);
                 gameState = GameState.READY;
+                animBG.SetBool("isFever", false);
             }
         }
-
         
-        ////fever time
-        //if (Input.GetMouseButtonDown(1))
-        //{
-        //    if (gameState == GameState.MAIN)
-        //    {
-        //        gameState = GameState.FEVER;
-        //        feverManager.StartFever();
-        //        hue = org_hue;
-        //    }
-        //    else if(gameState == GameState.FEVER)
-        //    {
-        //        feverManager.SetAndCheckFever(15.0f);
-        //        player.MoveToMiddle();
-        //        Invoke("SpawnEnemy", 0.3f);
-        //        backgroundBox.color = Color.HSVToRGB(org_hue, 1, 1);
-        //        gameState = GameState.READY;
-        //    }
-        //}
-
         if (gameState == GameState.FEVER)
         {
+            feverBackground.gameObject.SetActive(true);
             feverManager.SetAndCheckFever(Time.deltaTime);
             hue += rainbowSpeed / 1000;
             if (hue >= 1) hue = 0;
             backgroundBox.color = Color.HSVToRGB(hue, 1, 1);
+            feverBackSprite.color = Color.HSVToRGB(hue, 1, 1);
         }
     }
 

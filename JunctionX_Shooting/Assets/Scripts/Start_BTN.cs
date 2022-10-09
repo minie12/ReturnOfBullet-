@@ -27,8 +27,16 @@ public class Start_BTN : MonoBehaviour
 
     public void UIOff()
     {
-        start_mon.gameObject.SetActive(false);
-        tutorial_mon.gameObject.SetActive(false);
+        try
+        {
+            start_mon.gameObject.SetActive(false);
+            tutorial_mon.gameObject.SetActive(false);
+        }
+        catch
+        {
+
+        }
+        
     }
 
     public void goPlay()
