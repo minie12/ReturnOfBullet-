@@ -9,16 +9,17 @@ using System.Text.RegularExpressions;
 public class changeScene : MonoBehaviour
 {
     public InputField username;
-    int length, totalScore;
+    int length, totalScore, highScore;
     int[] scores = new int[6];
     string[] names = new string[6];
 
-    public Text scoreText;
+    public Text scoreText, highScoreText;
 
     // Start is called before the first frame update
     void Start()
     {
         scoreText.text = PlayerPrefs.GetInt("score", 0).ToString();
+        highScoreText.text = PlayerPrefs.GetInt("highscore", 0).ToString();
         username.characterLimit = 10;
     }
 
@@ -87,6 +88,7 @@ public class changeScene : MonoBehaviour
     {
         totalScore = PlayerPrefs.GetInt("score", 0);
         length = PlayerPrefs.GetInt("length", 0);
+        highScore = PlayerPrefs.GetInt("highscore", 0);
 
         for (int i = 0; i < length; i++)
         {
@@ -97,6 +99,7 @@ public class changeScene : MonoBehaviour
 
     void dataSave()
     {
+        PlayerPrefs.SetInt("highscore", highScore);
         if (length > 5)
         {
             length = 5;

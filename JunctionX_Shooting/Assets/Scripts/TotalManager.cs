@@ -29,8 +29,9 @@ public class TotalManager : MonoBehaviour
     public PlayerMovement player;
     public int red, green, orange, purple;
     int totalScore;
+    int highScore;
 
-    public Text scoreText;
+    public Text scoreText, highScoreText;
 
     public Animator animBG;
     public SpriteRenderer backgroundBox;
@@ -41,6 +42,8 @@ public class TotalManager : MonoBehaviour
 
     private void Start()
     {
+        highScore = PlayerPrefs.GetInt("highscore", 0);
+        highScoreText.text = highScore.ToString();
         Color.RGBToHSV(feverBackSprite.color, out org_hue, out _, out _);
         Color.RGBToHSV(backgroundBox.color, out org_hue, out _, out _);
         gameState = GameState.MAIN;
@@ -135,6 +138,11 @@ public class TotalManager : MonoBehaviour
 
     public void GameOver(){
         PlayerPrefs.SetInt("score", totalScore);
+        if (totalScore > highScore)
+        {
+            highScore = totalScore;
+        }
+        PlayerPrefs.SetInt("highscore", highScore);
 
         // stop player from moving
         player.enabled = false;
@@ -164,7 +172,7 @@ public class TotalManager : MonoBehaviour
 
     void GameOver_()
     {
-        SceneManager.LoadScene("gameOver");
+        SceneManager.LoadScene("gameOver norank");
     }
 
     public bool IsFever()
