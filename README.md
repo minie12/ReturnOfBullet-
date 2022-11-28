@@ -3,6 +3,10 @@
 ## JunctionX 2019 Challenge
 
 ###
+### 게임 실행 링크
+- https://return-of-bullet.vercel.app/
+
+###
 ### 개발환경
 - visual studio2017
 - unity2D
