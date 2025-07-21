@@ -21,6 +21,9 @@ public class PlayerMovement : MonoBehaviour
     float shootTimer = 1; //시간을 잴 타이머를 만들어줍니다.
     bool enableShooting = true;
 
+    // movement bool
+    bool enableMovement = true;
+
     void Start(){
         magazine = 10;
 
@@ -31,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void SetEnableShooting(bool b) { enableShooting = b; }
+    public void SetEnableMovement(bool b) { enableMovement = b; }
 
     //플레이어 화면 이탈 방지---
     void moveRange(){
@@ -49,6 +53,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!enableMovement) return;
+
         // moving with keyboard
         float translation_X = Input.GetAxis("Horizontal") * speed;
         float translation_Y = Input.GetAxis("Vertical") * speed;
